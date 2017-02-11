@@ -21,11 +21,11 @@
 #
 function(GRPC_GENERATE_CPP SRCS HDRS DEST)
   if(NOT ARGN)
-    message(SEND_ERROR "Error: PROTOBUF_GENERATE_CPP() called without any proto files")
+    message(SEND_ERROR "Error: GRPC_GENERATE_CPP() called without any proto files")
     return()
   endif()
 
-  if(PROTOBUF_GENERATE_CPP_APPEND_PATH)
+  if(GRPC_GENERATE_CPP_APPEND_PATH)
     # Create an include path for each file specified
     foreach(FIL ${ARGN})
       get_filename_component(ABS_FIL ${FIL} ABSOLUTE)
@@ -73,10 +73,10 @@ function(GRPC_GENERATE_CPP SRCS HDRS DEST)
   set(${HDRS} ${${HDRS}} PARENT_SCOPE)
 endfunction()
 
-# By default have PROTOBUF_GENERATE_CPP macro pass -I to protoc
+# By default have GRPC_GENERATE_CPP macro pass -I to protoc
 # for each directory where a proto file is referenced.
-if(NOT DEFINED PROTOBUF_GENERATE_CPP_APPEND_PATH)
-  set(PROTOBUF_GENERATE_CPP_APPEND_PATH TRUE)
+if(NOT DEFINED GRPC_GENERATE_CPP_APPEND_PATH)
+  set(GRPC_GENERATE_CPP_APPEND_PATH TRUE)
 endif()
 
 # Find gRPC include directory
@@ -122,5 +122,5 @@ set_target_properties(gRPC::grpc_cpp_plugin PROPERTIES
 )
 
 include(${CMAKE_ROOT}/Modules/FindPackageHandleStandardArgs.cmake)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Protobuf DEFAULT_MSG
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(gRPC DEFAULT_MSG
     GRPC_LIBRARY GRPC_INCLUDE_DIR GRPC_GRPC++_REFLECTION_LIBRARY GRPC_CPP_PLUGIN)
