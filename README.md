@@ -4,24 +4,24 @@ Tested on Ubuntu 18.04 LTS
 
 * Install [Protocol Buffers](https://github.com/google/protobuf/blob/master/src/README.md) and [gRPC](https://github.com/grpc/grpc/tree/master/src/cpp)
   ```bash
-    # On ubuntu 18.04
-    sudo apt-get install build-essential autoconf libtool pkg-config automake curl
+  # On ubuntu 18.04
+  sudo apt-get install build-essential autoconf libtool pkg-config automake curl
     
-    git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
-    cd grpc
-    git submodule update --init
+  git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+  cd grpc
+  git submodule update --init
+   
+  # Build and install protobuf
+  cd ./third_party/protobuf
+  ./autogen.sh
+  ./configure --prefix=/opt/protobuf
+  make -j `nproc`
+  make install
     
-    # Build and install protobuf
-    cd ./third_party/protobuf
-    ./autogen.sh
-    ./configure --prefix=/opt/protobuf
-    make -j `nproc`
-    make install
-    
-    # Build and install gRPC
-    cd ../..
-    make -j `nproc`
-    make -j `nproc` prefix=/opt/grpc PROTOC=/opt/protobuf/bin/protoc install
+  # Build and install gRPC
+  cd ../..
+  make -j `nproc`
+  make -j `nproc` prefix=/opt/grpc PROTOC=/opt/protobuf/bin/protoc install
 
   ```
 * Change CMAKE_PREFIX_PATH variable in CMakeFiles.txt[7] according to your install prefixes
