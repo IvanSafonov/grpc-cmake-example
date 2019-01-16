@@ -16,12 +16,12 @@ Tested on Ubuntu 18.04 LTS
   ./autogen.sh
   ./configure --prefix=/opt/protobuf
   make -j `nproc`
-  make install
+  sudo make install
     
   # Build and install gRPC
   cd ../..
-  make -j `nproc`
-  make -j `nproc` prefix=/opt/grpc PROTOC=/opt/protobuf/bin/protoc install
+  make -j `nproc` PROTOC=/opt/protobuf/bin/protoc 
+  sudo make prefix=/opt/grpc install
 
   ```
 * Change CMAKE_PREFIX_PATH variable in CMakeFiles.txt[7] according to your install prefixes
